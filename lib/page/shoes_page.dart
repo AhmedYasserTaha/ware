@@ -9,26 +9,28 @@ class ShoesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('أحذية'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              // التنقل إلى عربة التسوق
-            },
-          ),
-        ],
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.7,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-        ),
-        itemCount: shoesProducts.length,
-        itemBuilder: (context, index) {
-          return ProductCard(product: shoesProducts[index]);
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final Size screenSize = MediaQuery.of(context).size;
+          final double width = screenSize.width;
+
+          // تحديد عدد الأعمدة بناءً على عرض الشاشة
+          int crossAxisCount = width > 1200 ? 4 : (width > 800 ? 3 : 2);
+
+          return GridView.builder(
+            padding: EdgeInsets.all(constraints.maxWidth * 0.04),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              childAspectRatio: 0.7, // لضبط تناسب الصور مع الشاشة
+              crossAxisSpacing: constraints.maxWidth * 0.04,
+              mainAxisSpacing: constraints.maxHeight * 0.02,
+            ),
+            itemCount: shoesProducts.length,
+            itemBuilder: (context, index) {
+              return ProductCard(product: shoesProducts[index]);
+            },
+          );
         },
       ),
     );

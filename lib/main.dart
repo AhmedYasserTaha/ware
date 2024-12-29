@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_web_project/page/women_clothing_page.dart';
 import 'package:my_web_project/splash_screen.dart';
 
 void main() {
@@ -7,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Ware 4 U',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: 'Cairo',
       ),
       // نبدأ بصفحة الترحيب
-      home: WomenClothingPage(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

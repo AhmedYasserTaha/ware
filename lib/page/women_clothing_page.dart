@@ -6,31 +6,18 @@ class WomenClothingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // الحصول على أبعاد الشاشة
-    final Size screenSize = MediaQuery.of(context).size;
-    final double width = screenSize.width;
-
-    // تحديد عدد الأعمدة بناءً على عرض الشاشة
-    int crossAxisCount = width > 1200 ? 4 : (width > 800 ? 3 : 2);
-
-    // تحديد أحجام النصوص بناءً على عرض الشاشة
-    double titleFontSize = width > 800 ? 18 : 14;
-    double subtitleFontSize = width > 800 ? 16 : 12;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('ملابس نسائية'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              // التنقل إلى عربة التسوق
-            },
-          ),
-        ],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
+          final Size screenSize = MediaQuery.of(context).size;
+          final double width = screenSize.width;
+
+          // تحديد عدد الأعمدة بناءً على عرض الشاشة
+          int crossAxisCount = width > 1200 ? 4 : (width > 800 ? 3 : 2);
+
           return GridView.builder(
             padding: EdgeInsets.all(constraints.maxWidth * 0.04),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
