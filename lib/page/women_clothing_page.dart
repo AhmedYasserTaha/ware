@@ -16,16 +16,20 @@ class WomenClothingPage extends StatelessWidget {
           final double width = screenSize.width;
 
           // تحديد عدد الأعمدة بناءً على عرض الشاشة
-          int crossAxisCount = width > 1200 ? 4 : (width > 800 ? 3 : 2);
+          int crossAxisCount = width > 1200
+              ? 4
+              : (width > 800 ? 3 : 2); // إذا كانت الشاشة صغيرة نعرض عمودين فقط
 
           return GridView.builder(
-            padding: EdgeInsets.all(8.0), // استخدام padding ثابت
+            padding: EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: width > 800 ? 16.0 : 8.0, // padding أقل للشاشات الصغيرة
+            ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
-              childAspectRatio:
-                  0.65, // تقليل الحجم قليلاً للحصول على تناسق أفضل
-              crossAxisSpacing: 8.0, // مسافة ثابتة بين الأعمدة
-              mainAxisSpacing: 8.0, // مسافة ثابتة بين الصفوف
+              childAspectRatio: 0.55, // تقليل الحجم ليتناسب مع الشاشات الصغيرة
+              crossAxisSpacing: 6.0, // مسافة أصغر بين الأعمدة
+              mainAxisSpacing: 6.0, // مسافة أصغر بين الصفوف
             ),
             itemCount: womenProducts.length,
             itemBuilder: (context, index) {
