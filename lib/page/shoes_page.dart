@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_web_project/widget/widgets_product_card.dart';
+import 'package:my_web_project/widget/product_card.dart';
 
 class ShoesPage extends StatelessWidget {
   const ShoesPage({Key? key}) : super(key: key);
@@ -19,12 +19,13 @@ class ShoesPage extends StatelessWidget {
           int crossAxisCount = width > 1200 ? 4 : (width > 800 ? 3 : 2);
 
           return GridView.builder(
-            padding: EdgeInsets.all(constraints.maxWidth * 0.04),
+            padding: const EdgeInsets.all(8.0), // استخدام padding ثابت
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
-              childAspectRatio: 0.7, // لضبط تناسب الصور مع الشاشة
-              crossAxisSpacing: constraints.maxWidth * 0.04,
-              mainAxisSpacing: constraints.maxHeight * 0.02,
+              childAspectRatio:
+                  0.65, // تقليل الحجم قليلاً للحصول على تناسق أفضل
+              crossAxisSpacing: 8.0, // مسافة ثابتة بين الأعمدة
+              mainAxisSpacing: 8.0, // مسافة ثابتة بين الصفوف
             ),
             itemCount: shoesProducts.length,
             itemBuilder: (context, index) {

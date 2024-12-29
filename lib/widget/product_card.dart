@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_web_project/model/product_detail_page.dart';
 
+// تعريف كلاس المنتج
 class Product {
   final String name;
   final double price;
-  final String imageUrl; // هنا ستستخدم الصور المحلية
+  final String imageUrl;
   final List<String> sizes;
   final String category;
+  final double discount; // نسبة الخصم (مثل 20 = 20%)
 
   Product({
     required this.name,
@@ -14,9 +16,21 @@ class Product {
     required this.imageUrl,
     required this.sizes,
     required this.category,
+    this.discount = 0.0, // قيمة الخصم الافتراضية هي 0%
   });
+
+  // دالة لحساب السعر بعد الخصم
+  double getDiscountedPrice() {
+    return price * (1 - discount / 100); // السعر بعد الخصم
+  }
+
+  // دالة لعرض الخصم كنسبة مئوية
+  String getDiscountText() {
+    return '${discount}% خصم'; // عرض الخصم كنسبة مئوية
+  }
 }
 
+// تعريف كلاس الكارد لعرض المنتجات
 class ProductCard extends StatelessWidget {
   final Product product;
 
@@ -66,13 +80,30 @@ class ProductCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        '${product.price} جنيه',
-                        style: const TextStyle(
-                          color: Colors.green,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        children: [
+                          // عرض الخصم كنسبة مئوية
+                          Text(
+                            product.getDiscountText(),
+                            style: const TextStyle(
+                              color: Colors.green,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (product.discount > 0) ...[
+                            const SizedBox(width: 8),
+                            // عرض السعر القديم مع خط عليه
+                            Text(
+                              '${product.price} جنيه',
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 12,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                       const SizedBox(height: 4),
                       // عرض المقاسات المتاحة
@@ -130,73 +161,82 @@ final List<Product> womenProducts = [
   Product(
     name: 'فستان صيفي',
     price: 200.0,
-    imageUrl: 'images/w1.jpg', // مسار الصورة المحلية
+    imageUrl: 'images/w1.jpg',
     sizes: ['S', 'M', 'L', 'XL'],
     category: 'ملابس نسائية',
+    discount: 20, // خصم 20%
   ),
   Product(
     name: 'بلوزة كاجوال',
-    price: 199.99,
-    imageUrl: 'images/w2.jpg', // مسار الصورة المحلية
+    price: 400.0,
+    imageUrl: 'images/w2.jpg',
     sizes: ['S', 'M', 'L'],
     category: 'ملابس نسائية',
+    discount: 20, // خصم 20%
   ),
   Product(
     name: 'بلوزة كاجوال',
-    price: 199.99,
-    imageUrl: 'images/w2.jpg', // مسار الصورة المحلية
+    price: 500.0,
+    imageUrl: 'images/w2.jpg',
     sizes: ['S', 'M', 'L'],
     category: 'ملابس نسائية',
+    discount: 15, // خصم 15%
   ),
   Product(
     name: 'بلوزة كاجوال',
-    price: 199.99,
-    imageUrl: 'images/w2.jpg', // مسار الصورة المحلية
+    price: 600.0,
+    imageUrl: 'images/w2.jpg',
     sizes: ['S', 'M', 'L'],
     category: 'ملابس نسائية',
+    discount: 5, // خصم 5%
   ),
   Product(
     name: 'بلوزة كاجوال',
-    price: 199.99,
-    imageUrl: 'images/w2.jpg', // مسار الصورة المحلية
+    price: 400.0,
+    imageUrl: 'images/w2.jpg',
     sizes: ['S', 'M', 'L'],
     category: 'ملابس نسائية',
+    discount: 10, // خصم 10%
   ),
   Product(
     name: 'بلوزة كاجوال',
-    price: 199.99,
-    imageUrl: 'images/w2.jpg', // مسار الصورة المحلية
+    price: 400.0,
+    imageUrl: 'images/w2.jpg',
     sizes: ['S', 'M', 'L'],
     category: 'ملابس نسائية',
+    discount: 0, // بدون خصم
   ),
 ];
 
 final List<Product> kidsProducts = [
   Product(
     name: 'طقم أطفال رياضي',
-    price: 299.99,
-    imageUrl: 'images/b1.jpg', // مسار الصورة المحلية
+    price: 400.0,
+    imageUrl: 'images/b1.jpg',
     sizes: ['2-3Y', '4-5Y', '6-7Y'],
     category: 'ملابس أطفال',
+    discount: 5, // خصم 5%
   ),
 ];
 
 final List<Product> shoesProducts = [
   Product(
     name: 'حذاء رياضي',
-    price: 599.99,
-    imageUrl: 'images/w1.jpg', // مسار الصورة المحلية
+    price: 400.0,
+    imageUrl: 'images/w1.jpg',
     sizes: ['38', '39', '40', '41', '42'],
     category: 'أحذية',
+    discount: 10, // خصم 10%
   ),
 ];
 
 final List<Product> bagsProducts = [
   Product(
     name: 'حقيبة يد كلاسيكية',
-    price: 799.99,
-    imageUrl: 'images/pag1.jpg', // مسار الصورة المحلية
+    price: 400.0,
+    imageUrl: 'images/pag1.jpg',
     sizes: ['وسط', 'كبير'],
     category: 'حقائب',
+    discount: 0, // بدون خصم
   ),
 ];
